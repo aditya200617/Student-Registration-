@@ -9,7 +9,6 @@ def add_show(request):
     print("------------- show ----------")
     if request.method == "POST":
         data = request.POST
-        print("------------", data)
         name = data.get('name')
         age = data.get('age')
         address = data.get('address')
@@ -22,7 +21,6 @@ def add_show(request):
     
     queryset = Student.objects.all()
     context = {'students': queryset}
-    print("---------- test -----", context)
     return render(request,'addandshow.html', context)
 
 
