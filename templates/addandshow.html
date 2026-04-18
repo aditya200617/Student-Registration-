@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-4">
+        <h4 class="text-center alert alert-info">Add New student</h4>
+        <form method="post" enctype="multipart/form-data" class="card shadow-lg p-4">
+            {% csrf_token %}
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="name">Name</label>
+        <input type="name" name="name" class="form-control" id="name" placeholder="Name">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="age">Age</label>
+        <input type="number" name="age" class="form-control" id="age" placeholder="Age">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input type="text" name="address" class="form-control" id="address" placeholder="1234 Main St">
+    </div>
+    <div class="form-group">
+      <label for="phone_number">Phone number</label>
+      <input type="number" name="phone_number" class="form-control" id="phone_number" placeholder="Phone number">
+    </div>
+    <div class="form-group">
+      <label for="image">Image</label>
+      <input type="file" name="student_image" class="form-control" id="image" placeholder="Student Image">
+    </div>
+
+    <button type="submit" class="btn btn-success">Add Student</button>
+  </form>
+    </div>
+    <div class="col-sm-7 offset-1">
+        <h4 class="text-center alert alert-info">Show Student Infromation</h4>
+        {% if students %}
+      
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Address</th>
+                <th scope="col">Contact</th>
+                <th scope="col">Image</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+                {% for st in students %}
+              <tr>
+                <th scope="row">{{st.id}}</th>
+                <td>{{st.name}}</td>
+                <td>{{st.age}}</td>
+                <td>{{st.address}}</td>
+                <td>{{st.phone_number}}</td>
+                <td><img src="{{st.image.url}}" alt="Image" width="100px" height="100px"></td>
+                <td>
+                    <a href="/delete_student/{{st.id}}" style="width: 70px;" class="btn btn-danger">Delete</a>
+                    <a href="/update_student/{{st.id}}" style="width: 70px;" class="btn btn-info">Update</a>
+                </td>
+                <!-- <td class="action-buttons"> -->
+                    <!-- <a href="#" class="btn btn-danger btn-sm">Delete</a> -->
+                   
+
+                </td>
+              </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+        <h4 class="text-center alert alert-warning">No records</h4>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock content %}
+</body>
+</html>
